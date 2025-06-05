@@ -158,7 +158,7 @@
     }
   }
 
-  // Descripción con altura limitada - CORREGIDO line-clamp
+  // Descripción con altura limitada - CORREGIDO para mostrar más texto en desktop
   .project-description {
     font-size: 0.875rem; // Tamaño reducido para móvil
     line-height: 1.5;
@@ -172,16 +172,16 @@
 
     @media (min-width: 768px) {
       font-size: 1rem;
-      height: 100px;
-      -webkit-line-clamp: 5;
-      line-clamp: 5; // Propiedad estándar agregada
+      max-height: 160px; // Aumentado para mostrar más contenido
+      -webkit-line-clamp: 7; // Aumentado de 5 a 7
+      line-clamp: 7; // Propiedad estándar agregada
     }
 
     @media (min-width: 1024px) {
       font-size: 1.125rem;
-      height: 120px;
-      -webkit-line-clamp: 5;
-      line-clamp: 5; // Propiedad estándar agregada
+      max-height: 220px; // Significativamente aumentado para desktop
+      -webkit-line-clamp: 9; // Aumentado de 7 a 9 para mostrar más texto
+      line-clamp: 9; // Propiedad estándar agregada
     }
   }
 
@@ -207,16 +207,17 @@
       min-height: auto; // Sin altura mínima en móvil
       max-height: none; // Sin límite máximo en móvil
       overflow: visible;
+      align-items: flex-start; // AGREGADO: Alinear al inicio para evitar estiramiento
 
       @media (min-width: 768px) {
         gap: 0.75rem;
-        min-height: 60px;
+        min-height: auto; // CAMBIADO: Removida altura mínima fija
         max-height: 100px;
         overflow: hidden;
       }
 
       @media (min-width: 1024px) {
-        min-height: 80px;
+        min-height: auto; // CAMBIADO: Removida altura mínima fija
         max-height: 120px;
       }
     }
