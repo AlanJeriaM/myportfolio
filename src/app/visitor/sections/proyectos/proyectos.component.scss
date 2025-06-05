@@ -1,140 +1,299 @@
+/* proyectos.component.scss - CON EFECTO SLIDE LATERAL TIPO LIBRO */
+
+// Contenedor principal del carrusel
 .carousel-container {
   position: relative;
+  width: 100%;
+  height: 20rem; // Altura base más generosa
   overflow: hidden;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
 
+  @media (min-width: 768px) {
+    height: 24rem; // md: altura media
+  }
+
+  @media (min-width: 1024px) {
+    height: 28rem; // lg: altura completa
+  }
+
+  @media (min-width: 1280px) {
+    height: 32rem; // xl: altura máxima
+  }
+}
+
+// Wrapper del carrusel
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Slides de imágenes
+.image-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.current {
+    z-index: 10;
+    transform: translateX(0);
+  }
+
+  &.next {
+    z-index: 5;
+    transform: translateX(100%);
+  }
+
+  &.prev {
+    z-index: 5;
+    transform: translateX(-100%);
+  }
+}
+
+// Imagen principal optimizada
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // Cambiado a cover para que ocupe toda la altura
+  object-position: center;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  // Efecto hover suave
   &:hover {
-    .carousel-nav {
-      opacity: 1;
+    transform: scale(1.02);
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 10px 16px -4px rgba(0, 0, 0, 0.1);
+  }
+
+  // Transiciones de slide
+  &.slide-next {
+    animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  &.slide-prev {
+    animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+}
+
+// Animaciones de slide
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%) scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%) scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+// Botones de navegación
+.navigation-buttons {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 20;
+  pointer-events: none;
+
+  .nav-button {
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: scale(0.8);
+    }
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
 }
 
-.carousel-nav {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+// Efecto hover del grupo para mostrar botones
+.group:hover .navigation-buttons .nav-button {
+  opacity: 1;
+  transform: scale(1);
+}
 
-  button {
-    backdrop-filter: blur(4px);
+// Indicadores (dots)
+.indicator-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(4px);
+
+  &.active {
+    background: #3b82f6;
+    transform: scale(1.3);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+
+  &.inactive {
+    background: rgba(255, 255, 255, 0.7);
 
     &:hover {
+      background: rgba(255, 255, 255, 0.9);
       transform: scale(1.1);
     }
   }
 }
 
-// Animaciones personalizadas para las transiciones
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.project-card {
-  animation: fadeIn 0.6s ease-out;
-
-  &:nth-child(odd) {
-    animation-delay: 0.1s;
+// Estilos responsivos optimizados
+@media (max-width: 1023px) {
+  .carousel-container {
+    height: 22rem;
   }
 
-  &:nth-child(even) {
-    animation-delay: 0.2s;
+  .navigation-buttons .nav-button {
+    width: 2.5rem;
+    height: 2.5rem;
 
-    .grid {
-      direction: rtl; // Alternar el orden en proyectos pares
-
-      > * {
-        direction: ltr; // Restaurar la dirección del contenido
-      }
+    svg {
+      width: 1rem;
+      height: 1rem;
     }
   }
 }
 
-.tech-tag {
-  transition: all 0.3s ease;
+@media (max-width: 767px) {
+  .carousel-container {
+    height: 18rem;
+  }
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  .image-slide {
+    padding: 0.5rem;
+  }
+
+  .navigation-buttons {
+    padding: 0 0.5rem;
+
+    .nav-button {
+      width: 2rem;
+      height: 2rem;
+
+      svg {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+    }
+  }
+
+  .indicator-dot {
+    width: 0.625rem;
+    height: 0.625rem;
   }
 }
 
-// Mejoras para el modo oscuro
+@media (max-width: 479px) {
+  .carousel-container {
+    height: 16rem;
+  }
+}
+
+// Mejoras para modo oscuro
 .dark {
-  .project-card {
+  .carousel-container {
+    background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  }
+
+  .indicator-dot.inactive {
+    background: rgba(255, 255, 255, 0.4);
+
     &:hover {
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.6);
     }
   }
 }
 
-// Responsividad mejorada
-@media (max-width: 768px) {
-  .project-card {
-    .grid {
-      grid-template-columns: 1fr !important;
-
-      &[style*="direction: rtl"] {
-        direction: ltr !important;
-      }
-    }
-  }
+// Preloader para imágenes (opcional)
+.image-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #6b7280;
+  font-size: 0.875rem;
+  z-index: 5;
 }
 
-// Efectos de hover mejorados
-.project-image {
-  transition: transform 0.5s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+// Optimizaciones de rendimiento
+.carousel-image {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-// Indicadores del carrusel
-.carousel-indicators {
-  button {
-    transition: all 0.3s ease;
-
-    &.active {
-      transform: scale(1.2);
-    }
-  }
-}
-
-
-
-// Enlaces con efectos mejorados
-.project-link {
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  &:hover::before {
-    left: 100%;
+// Efecto de enfoque suave
+.carousel-container:focus-within {
+  .nav-button {
+    opacity: 1;
+    transform: scale(1);
   }
 }
