@@ -54,12 +54,12 @@ export class ProyectosComponent implements OnInit, OnDestroy {
   currentImageIndices: number[] = [];
   private carouselIntervals: any[] = [];
   isTransitioning: boolean[] = [];
-  // Removemos slideDirection ya que causaba conflictos
 
   // Propiedades optimizadas para mejor rendimiento
   private transitionDuration = 300; // Reducido para mayor fluidez
   private autoplayDelay = 4000;
 
+  // COLORES CORREGIDOS Y COMPLETOS para todas las tecnologías
   techColors: { [key: string]: string } = {
     'Angular': 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200',
     'React': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
@@ -81,7 +81,7 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     'HTML': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
     'GIT': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
     'AWS S3': 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200',
-    'Tailwind': 'bg-lime-100 dark:bg-lime-900 text-lime-800 dark:text-lime-200',
+    'Tailwind': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200', // AGREGADO
   };
 
   ngOnInit() {
@@ -188,8 +188,6 @@ export class ProyectosComponent implements OnInit, OnDestroy {
       this.carouselIntervals[projectIndex] = interval;
     }
   }
-
-  // MÉTODOS FALTANTES AGREGADOS:
 
   /**
    * Maneja el evento cuando una imagen se carga correctamente
