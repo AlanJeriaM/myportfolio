@@ -8,6 +8,9 @@ import { ExperienciaComponent } from './sections/experiencia/experiencia.compone
 import { HabilidadesComponent } from './sections/habilidades/habilidades.component';
 import { ProyectosComponent } from './sections/proyectos/proyectos.component';
 import { ContactoComponent } from './sections/contacto/contacto.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './components/footer/footer.component';
+import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 
 
 @NgModule({
@@ -17,11 +20,15 @@ import { ContactoComponent } from './sections/contacto/contacto.component';
     ExperienciaComponent,
     HabilidadesComponent,
     ProyectosComponent,
-    ContactoComponent
+    ContactoComponent,
+    FooterComponent,
+    ScrollToTopComponent
   ],
   imports: [
     CommonModule,
-    VisitorRoutingModule
+    VisitorRoutingModule,
+    ReactiveFormsModule,
+
   ],
   exports: [
     NavbarComponent,
@@ -29,7 +36,9 @@ import { ContactoComponent } from './sections/contacto/contacto.component';
     ExperienciaComponent,
     HabilidadesComponent,
     ProyectosComponent,
-    ContactoComponent
+    ContactoComponent,
+    FooterComponent,
+    ScrollToTopComponent
   ]
 })
 export class VisitorModule { }

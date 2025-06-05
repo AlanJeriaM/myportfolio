@@ -1,0 +1,140 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .carousel-nav {
+      opacity: 1;
+    }
+  }
+}
+
+.carousel-nav {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  button {
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Animaciones personalizadas para las transiciones
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.project-card {
+  animation: fadeIn 0.6s ease-out;
+
+  &:nth-child(odd) {
+    animation-delay: 0.1s;
+  }
+
+  &:nth-child(even) {
+    animation-delay: 0.2s;
+
+    .grid {
+      direction: rtl; // Alternar el orden en proyectos pares
+
+      > * {
+        direction: ltr; // Restaurar la dirección del contenido
+      }
+    }
+  }
+}
+
+.tech-tag {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Mejoras para el modo oscuro
+.dark {
+  .project-card {
+    &:hover {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+// Responsividad mejorada
+@media (max-width: 768px) {
+  .project-card {
+    .grid {
+      grid-template-columns: 1fr !important;
+
+      &[style*="direction: rtl"] {
+        direction: ltr !important;
+      }
+    }
+  }
+}
+
+// Efectos de hover mejorados
+.project-image {
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Indicadores del carrusel
+.carousel-indicators {
+  button {
+    transition: all 0.3s ease;
+
+    &.active {
+      transform: scale(1.2);
+    }
+  }
+}
+
+
+
+// Enlaces con efectos mejorados
+.project-link {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
