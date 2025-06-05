@@ -1,27 +1,30 @@
+<div class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+  <header>
+    <app-navbar ></app-navbar>
+  </header>
 
+  <main class="pt-24 space-y-8">
+    <section id="sobre-mi">
+      <app-sobre-mi ></app-sobre-mi>
+    </section>
 
-<header>
-  <app-navbar></app-navbar>
-</header>
+    <section id="experiencia">
+      <app-experiencia></app-experiencia>
+    </section>
 
-<main class="pt-24 space-y-32"> <!-- padding top para dejar espacio al header fijo -->
-  <section id="sobre-mi">
-    <app-sobre-mi></app-sobre-mi>
-  </section>
+    <section id="habilidades">
+      <app-habilidades></app-habilidades>
+    </section>
 
-  <section id="experiencia">
-    <app-experiencia></app-experiencia>
-  </section>
+    <section id="proyectos">
+      <app-proyectos></app-proyectos>
+    </section>
 
-  <section id="habilidades">
-    <app-habilidades></app-habilidades>
-  </section>
+    <section id="contacto">
+      <app-contacto></app-contacto>
+    </section>
+  </main>
 
-  <section id="proyectos">
-    <app-proyectos></app-proyectos>
-  </section>
-
-  <section id="contacto">
-    <app-contacto></app-contacto>
-  </section>
-</main>
+<app-footer></app-footer>
+<app-scroll-to-top></app-scroll-to-top>
+</div>

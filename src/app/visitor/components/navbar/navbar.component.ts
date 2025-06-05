@@ -16,11 +16,6 @@ export class NavbarComponent implements OnInit {
     if (savedDarkMode === 'true') {
       this.isDarkMode = true;
       document.documentElement.classList.add('dark');
-      document.body.classList.add('dark:bg-gray-900', 'bg-gray-900');
-      document.body.classList.remove('bg-white');
-    } else {
-      document.body.classList.add('bg-white');
-      document.body.classList.remove('dark:bg-gray-900', 'bg-gray-900');
     }
   }
 
@@ -29,17 +24,14 @@ export class NavbarComponent implements OnInit {
 
     if (this.isDarkMode) {
       document.documentElement.classList.add('dark');
-      document.body.classList.add('dark:bg-gray-900', 'bg-gray-900');
-      document.body.classList.remove('bg-white');
     } else {
       document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark:bg-gray-900', 'bg-gray-900');
-      document.body.classList.add('bg-white');
     }
 
     // Guardar preferencia
     localStorage.setItem('darkMode', this.isDarkMode.toString());
   }
+
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
