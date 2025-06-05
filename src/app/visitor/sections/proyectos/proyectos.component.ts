@@ -1,4 +1,4 @@
-// proyectos.component.ts - CON EFECTO SLIDE LATERAL
+// proyectos.component.ts - CARRUSEL CORREGIDO CON TRANSICIONES SUAVES
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 interface Project {
@@ -34,10 +34,7 @@ export class ProyectosComponent implements OnInit, OnDestroy {
       description: "Aplicación en desarrollo como parte de mi trabajo de título, enfocada en el seguimiento de egresados titulados de la Universidad de Valparaíso. Su objetivo principal es proporcionar información valiosa para la actualización y mejora continua de los planes y programas de estudio, en base a la trayectoria profesional de los egresados. Además, esta plataforma busca facilitar la toma de decisiones académicas a futuro, apoyando tanto a autoridades universitarias en la renovación de su oferta académica, como a estudiantes que están por ingresar a la educación superior.",
       images: [
         "assets/proyectos/seguimiento-1.webp",
-       "assets/proyectos/seguimiento-2.webp",
-        // "assets/proyectos/seguimiento-3.webp",
-        // "assets/proyectos/seguimiento-4.webp",
-        // "assets/proyectos/seguimiento-5.webp"
+        "assets/proyectos/seguimiento-2.webp",
       ],
       technologies: ["Angular", "Node.js", "MySql", "PrimeNG", "CSS", "TypeScript", "HTML", "GIT"],
     },
@@ -47,8 +44,8 @@ export class ProyectosComponent implements OnInit, OnDestroy {
       images: [
         "assets/proyectos/portafolio-1.webp",
         "assets/proyectos/portafolio-2.webp",
-       "assets/proyectos/portafolio-3.webp",
-       "assets/proyectos/portafolio-4.webp"
+        "assets/proyectos/portafolio-3.webp",
+        "assets/proyectos/portafolio-4.webp"
       ],
       technologies: ["Angular", "Tailwind", "SCSS", "TypeScript", "HTML", "GIT"],
     },
@@ -56,9 +53,12 @@ export class ProyectosComponent implements OnInit, OnDestroy {
 
   currentImageIndices: number[] = [];
   private carouselIntervals: any[] = [];
-  // Nuevas propiedades para el efecto slide
   isTransitioning: boolean[] = [];
-  slideDirection: string[] = [];
+  // Removemos slideDirection ya que causaba conflictos
+
+  // Propiedades optimizadas para mejor rendimiento
+  private transitionDuration = 300; // Reducido para mayor fluidez
+  private autoplayDelay = 4000;
 
   techColors: { [key: string]: string } = {
     'Angular': 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200',
@@ -85,90 +85,127 @@ export class ProyectosComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
-    this.currentImageIndices = new Array(this.projects.length).fill(0);
-    this.isTransitioning = new Array(this.projects.length).fill(false);
-    this.slideDirection = new Array(this.projects.length).fill('');
-
-    this.projects.forEach((project, index) => {
-      if (project.images.length > 1) {
-        const interval = setInterval(() => {
-          this.nextImage(index);
-        }, 4000); // Aumentado a 4 segundos para mejor experiencia
-        this.carouselIntervals.push(interval);
-      }
-    });
+    this.initializeCarousel();
   }
 
   ngOnDestroy() {
     this.carouselIntervals.forEach(interval => clearInterval(interval));
   }
 
+  private initializeCarousel() {
+    this.currentImageIndices = new Array(this.projects.length).fill(0);
+    this.isTransitioning = new Array(this.projects.length).fill(false);
+
+    // Iniciar autoplay para proyectos con múltiples imágenes
+    this.projects.forEach((project, index) => {
+      if (project.images.length > 1) {
+        const interval = setInterval(() => {
+          if (!this.isTransitioning[index]) {
+            this.nextImage(index);
+          }
+        }, this.autoplayDelay);
+        this.carouselIntervals.push(interval);
+      }
+    });
+  }
+
   nextImage(projectIndex: number) {
     if (this.isTransitioning[projectIndex]) return;
 
     const project = this.projects[projectIndex];
-    this.slideDirection[projectIndex] = 'next';
-    this.isTransitioning[projectIndex] = true;
+    if (project.images.length <= 1) return;
 
-    setTimeout(() => {
+    this.performTransition(projectIndex, () => {
       this.currentImageIndices[projectIndex] =
         (this.currentImageIndices[projectIndex] + 1) % project.images.length;
-
-      setTimeout(() => {
-        this.isTransitioning[projectIndex] = false;
-        this.slideDirection[projectIndex] = '';
-      }, 500); // Duración de la transición
-    }, 250);
+    });
   }
 
   previousImage(projectIndex: number) {
     if (this.isTransitioning[projectIndex]) return;
 
     const project = this.projects[projectIndex];
-    this.slideDirection[projectIndex] = 'prev';
-    this.isTransitioning[projectIndex] = true;
+    if (project.images.length <= 1) return;
 
-    setTimeout(() => {
+    this.performTransition(projectIndex, () => {
       this.currentImageIndices[projectIndex] =
         this.currentImageIndices[projectIndex] === 0
           ? project.images.length - 1
           : this.currentImageIndices[projectIndex] - 1;
-
-      setTimeout(() => {
-        this.isTransitioning[projectIndex] = false;
-        this.slideDirection[projectIndex] = '';
-      }, 500);
-    }, 250);
+    });
   }
 
-  // Método para cambiar directamente a una imagen específica
   goToImage(projectIndex: number, imageIndex: number) {
-    if (this.isTransitioning[projectIndex] || this.currentImageIndices[projectIndex] === imageIndex) return;
+    if (this.isTransitioning[projectIndex] ||
+        this.currentImageIndices[projectIndex] === imageIndex) return;
 
-    const currentIndex = this.currentImageIndices[projectIndex];
-    this.slideDirection[projectIndex] = imageIndex > currentIndex ? 'next' : 'prev';
+    this.performTransition(projectIndex, () => {
+      this.currentImageIndices[projectIndex] = imageIndex;
+    });
+  }
+
+  // Método simplificado sin animaciones CSS complejas
+  private performTransition(projectIndex: number, callback: () => void) {
+    // Marcar como en transición
     this.isTransitioning[projectIndex] = true;
 
-    setTimeout(() => {
-      this.currentImageIndices[projectIndex] = imageIndex;
+    // Ejecutar el cambio inmediatamente - el CSS maneja la transición
+    callback();
 
-      setTimeout(() => {
-        this.isTransitioning[projectIndex] = false;
-        this.slideDirection[projectIndex] = '';
-      }, 500);
-    }, 250);
+    // Resetear el estado después de la transición
+    setTimeout(() => {
+      this.isTransitioning[projectIndex] = false;
+    }, this.transitionDuration);
   }
 
   getTechColor(tech: string): string {
     return this.techColors[tech] || 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200';
   }
 
-  // Método para obtener las clases de transición
-  getSlideClasses(projectIndex: number): string {
-    const base = 'carousel-image';
-    if (!this.isTransitioning[projectIndex]) return base;
+  // Método simplificado para el transform
+  getWrapperTransform(projectIndex: number): string {
+    const currentIndex = this.currentImageIndices[projectIndex];
+    return `translateX(-${currentIndex * 100}%)`;
+  }
 
-    const direction = this.slideDirection[projectIndex];
-    return `${base} slide-${direction}`;
+  // Pausar autoplay al hacer hover
+  pauseAutoplay(projectIndex: number) {
+    if (this.carouselIntervals[projectIndex]) {
+      clearInterval(this.carouselIntervals[projectIndex]);
+      this.carouselIntervals[projectIndex] = null;
+    }
+  }
+
+  // Reanudar autoplay
+  resumeAutoplay(projectIndex: number) {
+    const project = this.projects[projectIndex];
+    if (project.images.length > 1 && !this.carouselIntervals[projectIndex]) {
+      const interval = setInterval(() => {
+        if (!this.isTransitioning[projectIndex]) {
+          this.nextImage(projectIndex);
+        }
+      }, this.autoplayDelay);
+      this.carouselIntervals[projectIndex] = interval;
+    }
+  }
+
+  // MÉTODOS FALTANTES AGREGADOS:
+
+  /**
+   * Maneja el evento cuando una imagen se carga correctamente
+   */
+  onImageLoad(): void {
+    // Aquí puedes agregar lógica adicional si necesitas hacer algo cuando la imagen se carga
+    // Por ejemplo: ocultar un spinner, actualizar el estado, etc.
+    console.log('Imagen cargada correctamente');
+  }
+
+  /**
+   * Maneja el evento cuando ocurre un error al cargar una imagen
+   */
+  onImageError(): void {
+    // Aquí puedes manejar errores de carga de imágenes
+    // Por ejemplo: mostrar una imagen por defecto, registrar el error, etc.
+    console.error('Error al cargar la imagen');
   }
 }
