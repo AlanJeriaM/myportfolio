@@ -1,0 +1,81 @@
+// Asegurar que el navbar tenga la altura correcta
+nav {
+  min-height: 80px;
+}
+
+// Prevenir problemas de scroll en móvil cuando el menú está abierto
+.mobile-menu-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
+// Smooth scroll para toda la página
+:host {
+  scroll-behavior: smooth;
+}
+
+// Ajustes para mejorar la experiencia táctil en móvil
+@media (max-width: 1024px) {
+  .mobile-menu-button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 44px; // Área táctil mínima recomendada
+    min-width: 44px;
+  }
+
+  // Asegurar que el menú móvil tenga la altura correcta
+  .mobile-menu-panel {
+    height: 100vh;
+    height: 100dvh; // Soporte para viewport dinámico en móviles modernos
+    max-height: 100vh;
+    max-height: 100dvh;
+  }
+}
+
+// Mejorar el backdrop del menú móvil
+.mobile-menu-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+// Animaciones suaves para el menú móvil
+.mobile-menu-panel {
+  transition: transform 0.3s ease-in-out;
+}
+
+// Z-index específicos para evitar conflictos
+.navbar-mobile-button {
+  z-index: 70;
+}
+
+.mobile-menu-container {
+  z-index: 60;
+}
+
+// Asegurar que los clicks funcionen en iOS
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Prevenir zoom en inputs en iOS
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"] {
+    font-size: 16px;
+  }
+}

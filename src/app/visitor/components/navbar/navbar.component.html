@@ -1,5 +1,10 @@
 <!-- navbar.component.html -->
-<nav class="absolute inset-x-0 top-0 z-50 bg-white dark:bg-gray-900 transition-colors duration-300">
+<nav
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  [ngClass]="{
+    'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg': isScrolled,
+    'bg-white dark:bg-gray-900': !isScrolled
+  }">
   <div class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
     <div class="flex lg:flex-1">
       <a href="#" class="-m-1.5 p-1.5">
@@ -12,7 +17,7 @@
     <div class="flex lg:hidden">
       <button
         type="button"
-        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300 mobile-menu-button"
         (click)="toggleMobileMenu()">
         <span class="sr-only">Open main menu</span>
         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -23,11 +28,11 @@
 
     <!-- Desktop navigation -->
     <div class="hidden lg:flex lg:gap-x-12">
-      <a href="#sobre-mi" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Sobre mí</a>
-      <a href="#experiencia" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Experiencia</a>
-      <a href="#habilidades" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Habilidades</a>
-      <a href="#proyectos" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Proyectos</a>
-      <a href="#contacto" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Contacto</a>
+      <a (click)="scrollToSection('sobre-mi', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Sobre mí</a>
+      <a (click)="scrollToSection('experiencia', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Experiencia</a>
+      <a (click)="scrollToSection('habilidades', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Habilidades</a>
+      <a (click)="scrollToSection('proyectos', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Proyectos</a>
+      <a (click)="scrollToSection('contacto', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Contacto</a>
     </div>
 
     <!-- Desktop dark mode toggle -->
@@ -71,10 +76,10 @@
 
     <!-- Background backdrop -->
     <div
-      class="fixed inset-0 z-50 bg-black/20 dark:bg-black/40"
+      class="fixed inset-0 z-50 bg-black/20 dark:bg-black/40 mobile-menu-backdrop"
       (click)="closeMobileMenu()"></div>
 
-    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-100/10">
+    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-100/10 mobile-menu-panel">
       <div class="flex items-center justify-between">
         <a href="#" class="-m-1.5 p-1.5">
           <span class="sr-only">Your Company</span>
@@ -95,25 +100,20 @@
         <div class="-my-6 divide-y divide-gray-500/10 dark:divide-gray-400/10">
           <div class="space-y-2 py-6">
             <a
-              href="#sobre-mi"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              (click)="closeMobileMenu()">Sobre mí</a>
+              (click)="scrollToSection('sobre-mi', $event)"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Sobre mí</a>
             <a
-              href="#experiencia"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              (click)="closeMobileMenu()">Experiencia</a>
+              (click)="scrollToSection('experiencia', $event)"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Experiencia</a>
             <a
-              href="#habilidades"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              (click)="closeMobileMenu()">Habilidades</a>
+              (click)="scrollToSection('habilidades', $event)"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Habilidades</a>
             <a
-              href="#proyectos"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              (click)="closeMobileMenu()">Proyectos</a>
+              (click)="scrollToSection('proyectos', $event)"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Proyectos</a>
             <a
-              href="#contacto"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              (click)="closeMobileMenu()">Contacto</a>
+              (click)="scrollToSection('contacto', $event)"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Contacto</a>
           </div>
 
           <!-- Mobile dark mode toggle -->
@@ -129,7 +129,7 @@
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1M9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
               </svg>
 
               <!-- Icono Luna (Dark Mode) -->

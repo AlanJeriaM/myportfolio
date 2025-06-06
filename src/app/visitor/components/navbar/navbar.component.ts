@@ -1,5 +1,4 @@
-// navbar.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
-  isDarkMode = false;
-  isMobileMenuOpen = false;
+  isDarkMode: boolean = false;
+  isMobileMenuOpen: boolean = false;
+  isScrolled: boolean = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Cargar preferencia de dark mode del localStorage
     const savedDarkMode = localStorage.getItem('darkMode');
     if (savedDarkMode === 'true') {
@@ -19,7 +19,15 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  toggleDarkMode() {
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(): void {
+    // Solo actualizar isScrolled si el menú móvil no está abierto
+    if (!this.isMobileMenuOpen) {
+      this.isScrolled = window.scrollY > 50;
+    }
+  }
+
+  toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;
 
     if (this.isDarkMode) {
@@ -32,12 +40,46 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem('darkMode', this.isDarkMode.toString());
   }
 
-
-  toggleMobileMenu() {
+  toggleMobileMenu(): void {
+    console.log('Toggle mobile menu called. Current state:', this.isMobileMenuOpen);
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    console.log('New state:', this.isMobileMenuOpen);
+
+    // Prevenir scroll del body cuando el menú está abierto
+    if (this.isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
   }
 
-  closeMobileMenu() {
+  closeMobileMenu(): void {
+    console.log('Close mobile menu called');
     this.isMobileMenuOpen = false;
+    // Restaurar scroll del body
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+  }
+
+  // Método para scroll suave a las secciones con offset
+  scrollToSection(sectionId: string, event: Event): void {
+    event.preventDefault();
+    this.closeMobileMenu(); // Cerrar menú móvil si está abierto
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navbarHeight = 80; // Altura aproximada del navbar
+      const elementPosition = element.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+    }
   }
 }
