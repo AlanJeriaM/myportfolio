@@ -1,4 +1,4 @@
-// proyectos.component.ts - CARRUSEL CORREGIDO CON TRANSICIONES SUAVES
+// proyectos.component.ts - VERSIÓN OPTIMIZADA
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 interface Project {
@@ -55,11 +55,10 @@ export class ProyectosComponent implements OnInit, OnDestroy {
   private carouselIntervals: any[] = [];
   isTransitioning: boolean[] = [];
 
-  // Propiedades optimizadas para mejor rendimiento
-  private transitionDuration = 300; // Reducido para mayor fluidez
+  private transitionDuration = 300;
   private autoplayDelay = 4000;
 
-  // COLORES CORREGIDOS Y COMPLETOS para todas las tecnologías
+  // Colores para tecnologías usando clases de Tailwind
   techColors: { [key: string]: string } = {
     'Angular': 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200',
     'React': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
@@ -79,9 +78,9 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     'CSS': 'bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200',
     'SCSS': 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200',
     'HTML': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
-    'GIT': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+    'GIT': 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
     'AWS S3': 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200',
-    'Tailwind': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200', // AGREGADO
+    'Tailwind': 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200',
   };
 
   ngOnInit() {
@@ -96,7 +95,6 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     this.currentImageIndices = new Array(this.projects.length).fill(0);
     this.isTransitioning = new Array(this.projects.length).fill(false);
 
-    // Iniciar autoplay para proyectos con múltiples imágenes
     this.projects.forEach((project, index) => {
       if (project.images.length > 1) {
         const interval = setInterval(() => {
@@ -144,15 +142,9 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Método simplificado sin animaciones CSS complejas
   private performTransition(projectIndex: number, callback: () => void) {
-    // Marcar como en transición
     this.isTransitioning[projectIndex] = true;
-
-    // Ejecutar el cambio inmediatamente - el CSS maneja la transición
     callback();
-
-    // Resetear el estado después de la transición
     setTimeout(() => {
       this.isTransitioning[projectIndex] = false;
     }, this.transitionDuration);
@@ -162,13 +154,11 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     return this.techColors[tech] || 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200';
   }
 
-  // Método simplificado para el transform
   getWrapperTransform(projectIndex: number): string {
     const currentIndex = this.currentImageIndices[projectIndex];
     return `translateX(-${currentIndex * 100}%)`;
   }
 
-  // Pausar autoplay al hacer hover
   pauseAutoplay(projectIndex: number) {
     if (this.carouselIntervals[projectIndex]) {
       clearInterval(this.carouselIntervals[projectIndex]);
@@ -176,7 +166,6 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Reanudar autoplay
   resumeAutoplay(projectIndex: number) {
     const project = this.projects[projectIndex];
     if (project.images.length > 1 && !this.carouselIntervals[projectIndex]) {
@@ -189,21 +178,11 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Maneja el evento cuando una imagen se carga correctamente
-   */
   onImageLoad(): void {
-    // Aquí puedes agregar lógica adicional si necesitas hacer algo cuando la imagen se carga
-    // Por ejemplo: ocultar un spinner, actualizar el estado, etc.
-    console.log('Imagen cargada correctamente');
+    // Imagen cargada correctamente
   }
 
-  /**
-   * Maneja el evento cuando ocurre un error al cargar una imagen
-   */
   onImageError(): void {
-    // Aquí puedes manejar errores de carga de imágenes
-    // Por ejemplo: mostrar una imagen por defecto, registrar el error, etc.
     console.error('Error al cargar la imagen');
   }
 }

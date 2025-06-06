@@ -1,4 +1,4 @@
-<!-- proyectos.component.html - TARJETAS UNIFORMES -->
+<!-- proyectos.component.html -->
 <section id="projects" class="py-20 bg-white dark:bg-gray-800">
   <div class="container mx-auto px-6">
     <div class="max-w-7xl mx-auto">
@@ -8,115 +8,121 @@
 
       <div class="space-y-12">
         <div *ngFor="let project of projects; let i = index"
-             class="project-card bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+             class="bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group
+                    h-[520px] sm:h-[540px] md:h-[560px] lg:h-[480px] flex flex-col lg:grid lg:grid-cols-2">
 
-          <div class="project-grid">
-            <!-- CARRUSEL CON ALTURA FIJA -->
-            <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800"
-                 (mouseenter)="pauseAutoplay(i)"
-                 (mouseleave)="resumeAutoplay(i)">
+          <!-- CARRUSEL -->
+          <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800
+                      h-[240px] sm:h-[260px] md:h-[280px] lg:h-full overflow-hidden"
+               (mouseenter)="pauseAutoplay(i)"
+               (mouseleave)="resumeAutoplay(i)">
 
-              <!-- Contenedor principal del carrusel -->
-              <div class="carousel-container">
-                <!-- Wrapper simplificado que contiene todas las imágenes -->
-                <div class="carousel-wrapper"
-                     [style.transform]="getWrapperTransform(i)">
+            <!-- Contenedor del carrusel -->
+            <div class="relative w-full h-full overflow-hidden">
+              <!-- Wrapper de imágenes -->
+              <div class="flex w-full h-full transition-transform duration-300 ease-out"
+                   [style.transform]="getWrapperTransform(i)">
 
-                  <!-- Todas las imágenes del proyecto -->
-                  <div *ngFor="let image of project.images; let imageIndex = index"
-                       class="image-slide">
-                    <img
-                      [src]="image"
-                      [alt]="project.title + ' - Imagen ' + (imageIndex + 1)"
-                      class="carousel-image"
-                      loading="lazy"
-                      (load)="onImageLoad()"
-                      (error)="onImageError()">
-                  </div>
+                <!-- Imágenes -->
+                <div *ngFor="let image of project.images; let imageIndex = index"
+                     class="w-full h-full flex-shrink-0">
+                  <img
+                    [src]="image"
+                    [alt]="project.title + ' - Imagen ' + (imageIndex + 1)"
+                    class="w-full h-full object-cover object-center transition-transform duration-200 hover:scale-105"
+                    loading="lazy"
+                    (load)="onImageLoad()"
+                    (error)="onImageError()">
                 </div>
-              </div>
-
-              <!-- Indicadores de navegación -->
-              <div *ngIf="project.images.length > 1"
-                   class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-                <button
-                  *ngFor="let image of project.images; let imageIndex = index"
-                  (click)="goToImage(i, imageIndex)"
-                  [class]="'indicator-dot transition-all duration-200 ' +
-                           (currentImageIndices[i] === imageIndex
-                            ? 'active'
-                            : 'inactive')"
-                  [attr.aria-label]="'Ir a imagen ' + (imageIndex + 1)"
-                  [disabled]="isTransitioning[i]">
-                </button>
-              </div>
-
-              <!-- Botones de navegación lateral -->
-              <div *ngIf="project.images.length > 1"
-                   class="navigation-buttons">
-                <button
-                  (click)="previousImage(i)"
-                  class="nav-button prev-button"
-                  [disabled]="isTransitioning[i]"
-                  aria-label="Imagen anterior">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                  </svg>
-                </button>
-
-                <button
-                  (click)="nextImage(i)"
-                  class="nav-button next-button"
-                  [disabled]="isTransitioning[i]"
-                  aria-label="Siguiente imagen">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </button>
-              </div>
-
-              <!-- Contador de imágenes -->
-              <div *ngIf="project.images.length > 1"
-                   class="absolute top-4 right-4 bg-black bg-opacity-60 text-white px-3 py-1 rounded-full text-sm font-medium z-20 backdrop-blur-sm">
-                {{ currentImageIndices[i] + 1 }} / {{ project.images.length }}
-              </div>
-
-              <!-- Loading overlay mejorado -->
-              <div *ngIf="isTransitioning[i]"
-                   class="loading-overlay">
-                <div class="spinner"></div>
               </div>
             </div>
 
-            <!-- CONTENIDO DEL PROYECTO CON ESTRUCTURA CONTROLADA -->
-            <div class="project-content">
-              <div class="content-wrapper">
+            <!-- Indicadores -->
+            <div *ngIf="project.images.length > 1"
+                 class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+              <button
+                *ngFor="let image of project.images; let imageIndex = index"
+                (click)="goToImage(i, imageIndex)"
+                [class]="'w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-200 backdrop-blur ' +
+                         (currentImageIndices[i] === imageIndex
+                          ? 'bg-blue-500 scale-125 shadow-lg shadow-blue-500/40'
+                          : 'bg-white/70 hover:bg-white/90 hover:scale-110')"
+                [attr.aria-label]="'Ir a imagen ' + (imageIndex + 1)"
+                [disabled]="isTransitioning[i]">
+              </button>
+            </div>
 
-                <!-- Título con altura controlada -->
-                <h3 class="project-title text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                  {{ project.title }}
-                </h3>
+            <!-- Botones de navegación -->
+            <div *ngIf="project.images.length > 1"
+                 class="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 flex justify-between px-4 z-20 pointer-events-none">
+              <button
+                (click)="previousImage(i)"
+                class="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-black/60 text-white rounded-full
+                       cursor-pointer opacity-0 scale-75 transition-all duration-200 backdrop-blur-sm pointer-events-auto
+                       hover:bg-black/80 hover:scale-105 active:scale-95 group-hover:opacity-100 group-hover:scale-100
+                       disabled:opacity-30 disabled:cursor-not-allowed disabled:scale-75"
+                [disabled]="isTransitioning[i]"
+                aria-label="Imagen anterior">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </button>
 
-                <!-- Descripción con altura limitada -->
-                <p class="project-description text-gray-600 dark:text-gray-300">
-                  {{ project.description }}
-                </p>
+              <button
+                (click)="nextImage(i)"
+                class="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-black/60 text-white rounded-full
+                       cursor-pointer opacity-0 scale-75 transition-all duration-200 backdrop-blur-sm pointer-events-auto
+                       hover:bg-black/80 hover:scale-105 active:scale-95 group-hover:opacity-100 group-hover:scale-100
+                       disabled:opacity-30 disabled:cursor-not-allowed disabled:scale-75"
+                [disabled]="isTransitioning[i]"
+                aria-label="Siguiente imagen">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </button>
+            </div>
 
-                <!-- Tecnologías con altura controlada -->
-                <div class="technologies-section">
-                  <h4 class="tech-title text-gray-500 dark:text-gray-400">
-                    Tecnologías Utilizadas
-                  </h4>
-                  <div class="tech-container">
-                    <span *ngFor="let tech of project.technologies"
-                          [class]="'tech-tag ' + getTechColor(tech)">
-                      {{ tech }}
-                    </span>
-                  </div>
-                </div>
+            <!-- Contador de imágenes -->
+            <div *ngIf="project.images.length > 1"
+                 class="absolute top-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-medium z-20 backdrop-blur-sm">
+              {{ currentImageIndices[i] + 1 }} / {{ project.images.length }}
+            </div>
+
+            <!-- Loading overlay -->
+            <div *ngIf="isTransitioning[i]"
+                 class="absolute inset-0 bg-black/10 flex items-center justify-center z-30 backdrop-blur-sm">
+              <div class="w-6 h-6 border-2 border-white/30 border-t-blue-500 rounded-full animate-spin"></div>
+            </div>
+          </div>
+
+          <!-- CONTENIDO DEL PROYECTO -->
+          <div class="flex flex-col h-[280px] sm:h-[280px] md:h-[280px] lg:h-full p-6 lg:p-8 justify-between">
+            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 dark:text-white
+                       group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300
+                       leading-tight mb-3 line-clamp-2">
+              {{ project.title }}
+            </h3>
+
+            <div class="flex-1 mb-4">
+              <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed
+                        line-clamp-[9] sm:line-clamp-[8] md:line-clamp-[9] lg:line-clamp-[7]">
+                {{ project.description }}
+              </p>
+            </div>
+
+            <div class="flex-shrink-0">
+              <h4 class="text-xs sm:text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
+                Tecnologías Utilizadas
+              </h4>
+              <div class="flex flex-wrap gap-2 max-h-18 overflow-hidden">
+                <span *ngFor="let tech of project.technologies"
+                      [class]="'inline-flex items-center px-2 py-1 rounded text-xs sm:text-sm font-medium transition-transform hover:scale-105 ' + getTechColor(tech)">
+                  {{ tech }}
+                </span>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
