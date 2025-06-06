@@ -19,7 +19,7 @@ export class ProyectosComponent implements OnInit, OnDestroy {
   projects: Project[] = [
     {
       title: "Luna Coffee & Brunch",
-      description: "Plataforma web oficial de Luna Coffee & Brunch, una cafetería ubicada en San Antonio, Chile. El sitio fue desarrollado con un enfoque en diseño moderno, experiencia móvil optimizada y gestión dinámica de contenidos multilingües. Incluye funcionalidades avanzadas como gestión de cupones automáticos, generación y envío de gift cards personalizadas, y un sistema de administración con control de acceso por roles múltiples.",
+      description: "Sitio web oficial de Luna Coffee & Brunch, cafetería de San Antonio, Chile, con diseño moderno, optimizado para móviles y contenido multilingüe. Ofrece gestión automática de cupones, envío de gift cards personalizadas y un panel de administración con control de acceso por roles.",
       images: [
         "assets/proyectos/cafeteria-1.webp",
         "assets/proyectos/cafeteria-2.webp",
@@ -31,7 +31,7 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     },
     {
       title: "Seguimiento de egresados",
-      description: "Aplicación en desarrollo como parte de mi trabajo de título, enfocada en el seguimiento de egresados titulados de la Universidad de Valparaíso. Su objetivo principal es proporcionar información valiosa para la actualización y mejora continua de los planes y programas de estudio, en base a la trayectoria profesional de los egresados. Además, esta plataforma busca facilitar la toma de decisiones académicas a futuro, apoyando tanto a autoridades universitarias en la renovación de su oferta académica.",
+      description: "Aplicación en desarrollo para el seguimiento de egresados de la Universidad de Valparaíso, enfocada en aportar información para mejorar y actualizar planes de estudio. Apoya a las autoridades universitarias en la renovación de la oferta académica.",
       images: [
         "assets/proyectos/seguimiento-1.webp",
         "assets/proyectos/seguimiento-2.webp",
@@ -40,7 +40,7 @@ export class ProyectosComponent implements OnInit, OnDestroy {
     },
     {
       title: "Portafolio Personal",
-      description: "Portafolio personal desarrollado con Angular y Tailwind CSS, diseñado para presentar de forma estructurada y moderna mis proyectos, habilidades y experiencia como desarrollador. La interfaz está optimizada para dispositivos móviles y ofrece una navegación fluida con una estética minimalista y profesional. Incluye secciones como presentación personal, proyectos destacados con enlaces en vivo, experiencia laboral, contacto y enlaces a redes profesionales.",
+      description: "Portafolio personal desarrollado con Angular y Tailwind CSS, con diseño moderno, minimalista y responsivo. Presenta proyectos destacados, experiencia, habilidades y enlaces a redes profesionales, ofreciendo navegación fluida y estructura clara.",
       images: [
         "assets/proyectos/portafolio-1.webp",
         "assets/proyectos/portafolio-2.webp",
