@@ -1,0 +1,99 @@
+
+        .hero-gradient {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes sparkleMove {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(156, 163, 175, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .dark .particle {
+            background: rgba(209, 213, 219, 0.2);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-80px) rotate(180deg); opacity: 0.2; }
+        }
+
+        .pulse-ring {
+            position: absolute;
+            border: 2px solid rgba(156, 163, 175, 0.2);
+            border-radius: 50%;
+            animation: pulseRing 3s ease-out infinite;
+        }
+
+        .dark .pulse-ring {
+            border-color: rgba(209, 213, 219, 0.1);
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title-glow {
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+            50% { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+        }
+
+        .floating-element {
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tag-hover {
+            transition: all 0.3s ease;
+        }
+
+        .tag-hover:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+

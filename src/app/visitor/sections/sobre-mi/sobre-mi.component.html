@@ -1,37 +1,59 @@
-<section id="about" class="py-20 bg-gray-50 dark:bg-gray-900">
-  <div class="container mx-auto px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-        Sobre mí
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6">
-          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed break-words">
-            ¡Hola! Soy Alan, un desarrollador apasionado por crear soluciones innovadoras y funcionales. Con experiencia en tecnologías modernas, me enfoco en desarrollar aplicaciones web escalables y centradas en una excelente experiencia de usuario. Actualmente sigo estudiando y perfeccionando mis habilidades a través de proyectos personales que me permiten crecer y mantenerme actualizado en un entorno tecnológico en constante evolución.
-          </p>
-          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed break-words">
-            Mi objetivo es combinar creatividad y tecnología para resolver problemas y entregar productos de alta calidad que generen impacto positivo.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full">
-              Desarrollo Frontend
-            </span>
-            <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full">
-              Desarrollo Backend
-            </span>
-            <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full">
-              UI/UX Design
-            </span>
+<section class="hero-gradient bg-gray-50 dark:bg-gray-900 min-h-screen py-20">
+  <!-- Partículas flotantes -->
+  <div class="particle w-3 h-3 top-20 left-10" style="animation-delay: 0s;"></div>
+  <div class="particle w-2 h-2 top-32 right-20" style="animation-delay: 1s;"></div>
+  <div class="particle w-4 h-4 top-48 left-32" style="animation-delay: 2s;"></div>
+  <div class="particle w-2 h-2 bottom-40 right-32" style="animation-delay: 3s;"></div>
+  <div class="particle w-3 h-3 bottom-24 left-16" style="animation-delay: 4s;"></div>
+  <div class="particle w-2 h-2 top-60 right-40" style="animation-delay: 5s;"></div>
+  <div class="particle w-3 h-3 bottom-60 right-16" style="animation-delay: 6s;"></div>
+  <div class="particle w-2 h-2 top-40 left-48" style="animation-delay: 7s;"></div>
+
+  <!-- Anillos de pulso -->
+  <div class="pulse-ring w-96 h-96 top-1/4 left-1/4" style="animation-delay: 0s;"></div>
+  <div class="pulse-ring w-64 h-64 top-3/4 right-1/4" style="animation-delay: 1.5s;"></div>
+  <div class="pulse-ring w-80 h-80 bottom-1/4 left-1/3" style="animation-delay: 3s;"></div>
+
+  <div class="container mx-auto px-4 sm:px-6 relative z-10">
+      <div class="max-w-6xl mx-auto">
+          <!-- Contenedor con contenido original -->
+          <div class="content-overlay">
+              <h1 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white title-glow">
+                  Sobre mí
+              </h1>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                  <div class="space-y-6 floating-element">
+                      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed break-words">
+                          ¡Hola! Soy Alan, un desarrollador apasionado por crear soluciones innovadoras y funcionales. Con experiencia en tecnologías modernas, me enfoco en desarrollar aplicaciones web escalables y centradas en una excelente experiencia de usuario. Actualmente sigo estudiando y perfeccionando mis habilidades a través de proyectos personales que me permiten crecer y mantenerme actualizado en un entorno tecnológico en constante evolución.
+                      </p>
+                      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed break-words">
+                          Mi objetivo es combinar creatividad y tecnología para resolver problemas y entregar productos de alta calidad que generen impacto positivo.
+                      </p>
+                      <div class="flex flex-wrap gap-4">
+                          <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full tag-hover">
+                              Desarrollo Frontend
+                          </span>
+                          <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full tag-hover">
+                              Desarrollo Backend
+                          </span>
+                          <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full tag-hover">
+                              UI/UX Design
+                          </span>
+                      </div>
+                  </div>
+
+                  <div class="flex justify-center floating-element">
+                      <div class="profile-glow">
+                          <div class="w-64 h-64 sm:w-80 sm:h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
+                              <div class="w-56 h-56 sm:w-72 sm:h-72 bg-white dark:bg-gray-800 rounded-full overflow-hidden flex items-center justify-center">
+                                  <img src="https://avatars.githubusercontent.com/u/27876193?v=4" alt="Foto de perfil" class="w-full h-full object-cover" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-        <div class="flex justify-center">
-          <div class="w-64 h-64 sm:w-80 sm:h-80 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
-            <div class="w-56 h-56 sm:w-72 sm:h-72 bg-white dark:bg-gray-800 rounded-full overflow-hidden flex items-center justify-center">
-              <img src="https://avatars.githubusercontent.com/u/27876193?v=4" alt="Foto de perfil" class="w-full h-full object-cover" />
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
   </div>
 </section>
