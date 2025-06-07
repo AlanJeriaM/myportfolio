@@ -1,25 +1,79 @@
+<!-- habilidades.component.html -->
 <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-900">
   <div class="container mx-auto px-6">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-        Habilidades
+        Habilidades Técnicas
       </h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div *ngFor="let category of skillCategories"
-             class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-          <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-white text-center">
-            {{ category }}
-          </h3>
-          <div class="space-y-4">
-            <div *ngFor="let skill of getSkillsByCategory(category)">
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-gray-700 dark:text-gray-300 font-medium">{{ skill.name }}</span>
-                <span class="text-gray-500 dark:text-gray-400 text-sm">{{ skill.level }}%</span>
+
+      <div class="space-y-6">
+        <div *ngFor="let category of skillCategories; let i = index"
+             class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+
+          <!-- Header de la categoría -->
+          <div class="flex items-center justify-between p-4 sm:p-6 cursor-pointer border-b border-gray-200 dark:border-gray-700"
+               (click)="toggleCategory(i)">
+            <div class="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+              <span class="text-xl sm:text-2xl flex-shrink-0">{{ category.icon }}</span>
+              <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-white truncate">
+                {{ category.name }}
+              </h3>
+              <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium flex-shrink-0">
+                {{ category.technologies.length }}
+              </span>
+            </div>
+            <div class="transform transition-transform duration-300 flex-shrink-0 ml-2"
+                 [class.rotate-180]="category.isExpanded">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Contenido expandible -->
+          <div class="transition-all duration-500 ease-in-out overflow-hidden"
+               [ngClass]="{
+                 'max-h-0': !category.isExpanded,
+                 'max-h-none': category.isExpanded
+               }">
+            <div class="p-4 sm:p-6 bg-gray-50 dark:bg-gray-700">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div *ngFor="let tech of category.technologies"
+                     class="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-300">
+
+                  <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0">
+                      <img [src]="tech.logo"
+                      [alt]="tech.name + ' logo'"
+                      class="w-10 h-10 sm:w-12 sm:h-12 object-contain">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h4 class="text-sm sm:text-base font-semibold text-gray-800 dark:text-white truncate">
+                        {{ tech.name }}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out"
-                     [style.width.%]="skill.level"></div>
-              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estadísticas generales -->
+      <div class="mt-12 bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+        <h3 class="text-xl font-bold text-center mb-6 text-gray-800 dark:text-white">
+          Resumen de Tecnologías
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 text-center">
+          <div *ngFor="let category of skillCategories"
+               class="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 sm:p-4">
+            <div class="text-xl sm:text-2xl mb-1 sm:mb-2">{{ category.icon }}</div>
+            <div class="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
+              {{ category.technologies.length }}
+            </div>
+            <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-tight">
+              {{ category.name }}
             </div>
           </div>
         </div>
