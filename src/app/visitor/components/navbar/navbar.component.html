@@ -1,15 +1,22 @@
 <!-- navbar.component.html -->
 <nav
-  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-500"
   [ngClass]="{
     'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg': isScrolled,
     'bg-white dark:bg-gray-900': !isScrolled
   }">
   <div class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-    <div class="flex lg:flex-1">
-      <a href="#" class="-m-1.5 p-1.5">
-        <span class="sr-only">Your Company</span>
-        <img class="h-8 w-auto rounded-full" src="https://avatars.githubusercontent.com/u/27876193?v=4" alt="alanfoto">
+    <div class="flex lg:flex-1 items-center space-x-4">
+      <a href="#" class="flex items-center space-x-4 -m-1.5 p-1.5">
+        <img
+          class="h-10 w-10 rounded-full"
+          src="https://avatars.githubusercontent.com/u/27876193?v=4"
+          alt="alanfoto"
+        />
+        <div class="flex flex-col leading-tight">
+          <span class="font-semibold text-gray-900 dark:text-white text-base">Alan Jeria</span>
+          <span class="text-gray-500 dark:text-gray-400 text-sm">Software Developer</span>
+        </div>
       </a>
     </div>
 
@@ -28,11 +35,11 @@
 
     <!-- Desktop navigation -->
     <div class="hidden lg:flex lg:gap-x-12">
-      <a (click)="scrollToSection('sobre-mi', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Sobre mí</a>
-      <a (click)="scrollToSection('experiencia', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Experiencia</a>
-      <a (click)="scrollToSection('habilidades', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Habilidades</a>
-      <a (click)="scrollToSection('proyectos', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Proyectos</a>
-      <a (click)="scrollToSection('contacto', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Contacto</a>
+      <a href="#sobre-mi" (click)="scrollToSection('sobre-mi', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Sobre mí</a>
+      <a href="#experiencia" (click)="scrollToSection('experiencia', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Experiencia</a>
+      <a href="#habilidades" (click)="scrollToSection('habilidades', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Habilidades</a>
+      <a href="#proyectos" (click)="scrollToSection('proyectos', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Proyectos</a>
+      <a href="#contacto" (click)="scrollToSection('contacto', $event)" class="text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">Contacto</a>
     </div>
 
     <!-- Desktop dark mode toggle -->
@@ -81,9 +88,12 @@
 
     <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-gray-100/10 mobile-menu-panel">
       <div class="flex items-center justify-between">
-        <a href="#" class="-m-1.5 p-1.5">
-          <span class="sr-only">Your Company</span>
-          <img class="h-8 w-auto rounded-full" src="https://avatars.githubusercontent.com/u/27876193?v=4" alt="alanfoto">
+        <a href="#" class="flex items-center space-x-4 -m-1.5 p-1.5">
+          <img class="h-10 w-10 rounded-full" src="https://avatars.githubusercontent.com/u/27876193?v=4" alt="alanfoto" />
+          <div class="flex flex-col leading-tight">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">Alan Jeria</span>
+            <span class="text-gray-500 dark:text-gray-400 text-sm">Software Developer</span>
+          </div>
         </a>
         <button
           type="button"
@@ -99,19 +109,19 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10 dark:divide-gray-400/10">
           <div class="space-y-2 py-6">
-            <a
+            <a href="#sobre-mi"
               (click)="scrollToSection('sobre-mi', $event)"
               class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Sobre mí</a>
-            <a
+            <a href="#experiencia"
               (click)="scrollToSection('experiencia', $event)"
               class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Experiencia</a>
-            <a
+            <a href="#habilidades"
               (click)="scrollToSection('habilidades', $event)"
               class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Habilidades</a>
-            <a
+            <a href="#proyectos"
               (click)="scrollToSection('proyectos', $event)"
               class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Proyectos</a>
-            <a
+            <a href="#contacto"
               (click)="scrollToSection('contacto', $event)"
               class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">Contacto</a>
           </div>

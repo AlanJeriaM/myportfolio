@@ -24,7 +24,7 @@ export class HabilidadesComponent {
     {
       name: 'Frontend',
       icon: '🖥️',
-      isExpanded: false,
+      isExpanded: true,
       technologies: [
         {
           name: 'Angular',
@@ -47,7 +47,7 @@ export class HabilidadesComponent {
     {
       name: 'Backend',
       icon: '⚙️',
-      isExpanded: false,
+      isExpanded: true,
       technologies: [
         {
           name: 'Node.js',
@@ -66,7 +66,7 @@ export class HabilidadesComponent {
     {
       name: 'Base de Datos',
       icon: '🗄️',
-      isExpanded: false,
+      isExpanded: true,
       technologies: [
         {
           name: 'MySQL',
@@ -81,7 +81,7 @@ export class HabilidadesComponent {
     {
       name: 'Control de Versiones',
       icon: '📚',
-      isExpanded: false,
+      isExpanded: true,
       technologies: [
         {
           name: 'Git',
@@ -96,7 +96,7 @@ export class HabilidadesComponent {
     {
       name: 'Herramientas de Software',
       icon: '🛠️',
-      isExpanded: false,
+      isExpanded: true,
       technologies: [
         {
           name: 'VS Code',
