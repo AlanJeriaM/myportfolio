@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
 
@@ -17,6 +17,27 @@ export class ContactoComponent {
   submitMessage = '';
   submitSuccess = false;
   showSuccessModal = false;
+
+    @ViewChild('skillsTitle') skillsTitle!: ElementRef<HTMLHeadingElement>;
+    animateTitle = false;
+
+    ngAfterViewInit() {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            this.animateTitle = true;
+            observer.unobserve(this.skillsTitle.nativeElement); // solo una vez
+          }
+        },
+        {
+          threshold: 0.4// 30% visible
+        }
+      );
+
+      if (this.skillsTitle?.nativeElement) {
+        observer.observe(this.skillsTitle.nativeElement);
+      }
+    }
 
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({

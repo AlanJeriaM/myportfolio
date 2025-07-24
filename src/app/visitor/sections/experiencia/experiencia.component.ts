@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 interface Experience {
   company: string;
   position: string;
@@ -12,9 +11,30 @@ interface Experience {
 @Component({
   selector: 'app-experiencia',
   templateUrl: './experiencia.component.html',
-  styleUrl: './experiencia.component.scss'
+  styleUrls: ['./experiencia.component.scss']
 })
 export class ExperienciaComponent {
+
+  @ViewChild('skillsTitle') skillsTitle!: ElementRef<HTMLHeadingElement>;
+  animateTitle = false;
+
+  ngAfterViewInit() {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          this.animateTitle = true;
+          observer.unobserve(this.skillsTitle.nativeElement); // solo una vez
+        }
+      },
+      {
+        threshold: 0.4// 30% visible
+      }
+    );
+
+    if (this.skillsTitle?.nativeElement) {
+      observer.observe(this.skillsTitle.nativeElement);
+    }
+  }
 
   experiences: Experience[] = [
     {

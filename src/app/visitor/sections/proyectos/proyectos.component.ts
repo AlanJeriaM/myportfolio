@@ -1,5 +1,5 @@
 // proyectos.component.ts - VERSIÓN OPTIMIZADA
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 
 interface Project {
   title: string;
@@ -16,6 +16,28 @@ interface Project {
   styleUrl: './proyectos.component.scss'
 })
 export class ProyectosComponent implements OnInit, OnDestroy {
+
+    @ViewChild('skillsTitle') skillsTitle!: ElementRef<HTMLHeadingElement>;
+    animateTitle = false;
+
+    ngAfterViewInit() {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            this.animateTitle = true;
+            observer.unobserve(this.skillsTitle.nativeElement); // solo una vez
+          }
+        },
+        {
+          threshold: 0.4// 40% visible
+        }
+      );
+
+      if (this.skillsTitle?.nativeElement) {
+        observer.observe(this.skillsTitle.nativeElement);
+      }
+    }
+
   projects: Project[] = [
     {
       title: "Luna Coffee & Brunch",
